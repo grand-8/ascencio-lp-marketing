@@ -90,7 +90,8 @@ Chaque script de contenu (une thématique = un fichier `.md`) suit le même plan
 ## À remplacer avant mise en ligne
 
 - `<meta property="og:image">` → une image de partage dédiée si besoin (actuellement une photo de l'équipe sert de repli).
-- `GTM-XXXXXXX` → l'ID réel du conteneur Google Tag Manager, dans **tous** les fichiers `index.html` du site (balise `<script>` en haut du `<head>` + `<noscript><iframe>` juste après `<body>`). Le pixel Facebook et Google Analytics se configurent comme des tags **à l'intérieur** de ce conteneur GTM (interface web GTM), pas en dur dans le HTML.
+
+Le conteneur Google Tag Manager (`GTM-M7S3R6W7`) est configuré dans tous les fichiers `index.html`. Le pixel Facebook et Google Analytics se configurent comme des tags **à l'intérieur** de ce conteneur (interface web GTM), pas en dur dans le HTML.
 
 ## Déploiement
 
