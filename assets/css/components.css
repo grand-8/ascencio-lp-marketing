@@ -1,0 +1,623 @@
+/* Component library shared by every variant's index.html.
+   Mobile-first: base rules target the phone layout used inside the
+   Instagram/Facebook in-app browser; the single breakpoint below scales
+   up to the desktop layout. Keeping one breakpoint (instead of separate
+   mobile/desktop templates) is what makes a section reusable as one
+   component across variants. */
+
+/* ---------- base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, p, ol, ul { margin: 0; }
+a { color: var(--ink); text-decoration: none; }
+img { display: block; max-width: 100%; }
+p { text-wrap: pretty; }
+.accent { color: var(--brand); }
+
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--gutter-mobile);
+}
+@media (min-width: 721px) {
+  .container { padding: 0 var(--gutter-desktop); }
+}
+
+/* ---------- buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  min-height: 48px;
+  padding: 12px 22px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-sans);
+  font-size: var(--fs-button);
+  font-weight: var(--fw-button);
+  line-height: var(--lh-button);
+  letter-spacing: var(--ls-button);
+  white-space: nowrap;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color var(--dur-base) var(--ease-out),
+              color var(--dur-base) var(--ease-out),
+              border-color var(--dur-base) var(--ease-out);
+}
+.btn-primary { background: var(--ink); color: var(--canvas); }
+.btn-secondary { background: var(--canvas); color: var(--ink); border-color: var(--border-card); }
+.btn:hover, .btn:focus-visible { background: var(--brand); color: #fff; border-color: var(--brand); }
+.btn-block { width: auto; }
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: var(--radius-full);
+  background: var(--surface-soft);
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 18px;
+}
+.icon-btn:hover, .icon-btn:focus-visible { background: var(--brand); color: #fff; }
+
+/* ---------- color block ---------- */
+.color-block {
+  border-radius: var(--radius-lg);
+  padding: 32px;
+}
+@media (min-width: 721px) {
+  .color-block { padding: 24px 36px; }
+}
+.color-block--lime { background: var(--block-lime); }
+.color-block--cream { background: var(--block-cream); }
+.color-block--lime, .color-block--cream { padding-top: 32px; padding-bottom: 32px; }
+@media (min-width: 721px) {
+  .color-block--lime, .color-block--cream { padding-top: 48px; padding-bottom: 48px; }
+}
+.color-block--mint { background: var(--block-mint); }
+.color-block--pink { background: var(--block-pink); }
+.color-block--lilac { background: var(--block-lilac); }
+.color-block--coral { background: var(--block-coral); }
+.color-block--dark { background: var(--ink); color: var(--inverse-ink); }
+
+/* ---------- header ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  height: 60px;
+  background: var(--canvas);
+  border-bottom: var(--space-hair) solid var(--hairline);
+}
+.header-inner { display: flex; align-items: center; justify-content: space-between; gap: var(--space-md); height: 100%; }
+.site-header .logo { height: 30px; width: auto; }
+.site-header .btn { display: none; }
+@media (min-width: 721px) {
+  .site-header { height: 86px; }
+  .site-header .logo { height: 42px; }
+  .site-header .btn { display: inline-flex; }
+}
+
+/* ---------- hero ---------- */
+.hero { padding: var(--space-xxl) 0; }
+.hero-title {
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.7px;
+}
+.hero-sub {
+  margin-top: var(--space-lg);
+  max-width: 60em;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body-lg);
+  letter-spacing: var(--ls-body);
+}
+.hero-actions {
+  margin-top: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-md);
+}
+.hero-cta-col { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-md); }
+.hero-reassurance {
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  letter-spacing: var(--ls-caption);
+  text-transform: uppercase;
+}
+.hero-stat {
+  margin-top: var(--space-xl);
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: 16px var(--space-lg);
+  background: var(--canvas);
+  border: 1px solid var(--brand);
+  border-radius: var(--radius-lg);
+}
+.hero-stat-number { flex: none; font-size: 44px; font-weight: 800; line-height: 1; letter-spacing: -1px; color: var(--brand); }
+.hero-stat-label { font-size: var(--fs-body-sm); font-weight: 600; line-height: 1.25; }
+
+@media (min-width: 721px) {
+  .hero { padding: var(--space-section) 0; }
+  .hero-title { max-width: 16em; font-size: clamp(40px, 5.2vw, 76px); font-weight: 900; line-height: 1.02; letter-spacing: -1.4px; }
+  .hero-sub { max-width: min(52em, calc(100% - 300px)); font-size: var(--fs-body-lg); line-height: var(--lh-body-lg); letter-spacing: var(--ls-body-lg); margin-top: var(--space-xl); }
+  .hero-actions {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-xxl);
+  }
+  .hero-reassurance { padding-left: 15px; }
+  .hero-stat {
+    flex: none;
+    width: 222px;
+    height: 190px;
+    margin-top: -140px;
+    padding: var(--space-xl);
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    border-radius: 6px;
+    transform: rotate(-4deg);
+  }
+  .hero-stat-number { font-size: 57px; font-weight: 700; letter-spacing: -1.4px; color: rgba(145, 169, 146, 0.92); }
+  .hero-stat-label { font-size: 18px; font-weight: 400; }
+}
+
+/* opt-in: scale up short hero titles instead of rendering them at baseline
+   size — combine with .hero-title (class="hero-title hero-title--lg"),
+   never replaces it, so pages with long titles are unaffected. */
+.hero-title--lg { font-size: 44px; letter-spacing: -1px; }
+@media (min-width: 721px) {
+  .hero-title--lg { max-width: 20em; font-size: clamp(56px, 8vw, 108px); letter-spacing: -2px; }
+}
+
+/* ---------- mirror (problem framing) ---------- */
+.mirror-grid {
+  display: grid;
+  gap: var(--space-xl);
+  align-items: start;
+}
+.mirror-title { font-size: 28px; font-weight: 800; line-height: 1.1; letter-spacing: -0.4px; }
+.mirror-body { margin-top: var(--space-lg); font-size: var(--fs-body-sm); line-height: var(--lh-body-sm); }
+.mirror-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  letter-spacing: var(--ls-caption);
+  text-transform: uppercase;
+}
+.mirror-list { list-style: none; margin: var(--space-md) 0 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-md); }
+.mirror-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xxs);
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--ink);
+}
+.mirror-num { font-family: var(--font-mono); font-size: var(--fs-caption); letter-spacing: var(--ls-caption); color: var(--brand); }
+.mirror-item p { font-size: var(--fs-body-lg); font-weight: 600; line-height: 1.3; }
+
+@media (min-width: 721px) {
+  .mirror-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-section); }
+  .mirror-title { font-size: clamp(32px, 3.6vw, 48px); }
+  .mirror-body { max-width: 24em; font-size: var(--fs-body-lg); line-height: var(--lh-body-lg); }
+  .mirror-eyebrow { font-size: 15px; letter-spacing: 0.6px; }
+  .mirror-list { margin-top: var(--space-lg); gap: var(--space-lg); }
+}
+
+/* opt-in: right column as a single pull-quote instead of a numbered list —
+   for themes whose "méchant" framing is one statement, not several
+   consequences. Use <blockquote class="mirror-quote"> in place of
+   .mirror-eyebrow + .mirror-list; .mirror-grid itself is untouched. */
+.mirror-quote {
+  margin: 0;
+  padding-left: var(--space-lg);
+  border-left: 2px solid var(--ink);
+  font-size: var(--fs-body-lg);
+  font-weight: 600;
+  line-height: 1.3;
+}
+@media (min-width: 721px) {
+  .mirror-quote { align-self: center; padding-left: var(--space-xl); font-size: clamp(22px, 2.4vw, 30px); }
+}
+/* when a second .mirror-quote sits under the title in the left column
+   (rather than standing alone as the right column), give it breathing
+   room — the standalone right-column one relies on the grid gap instead. */
+.mirror-title + .mirror-quote { margin-top: var(--space-md); border-left: none; padding-left: 0; }
+@media (min-width: 721px) {
+  .mirror-title + .mirror-quote { margin-top: var(--space-lg); padding-left: 0; }
+}
+/* opt-in: vertically center a short right column against the left column
+   instead of top-aligning it (baseline .mirror-grid uses align-items:
+   start, which suits a tall .mirror-list but strands a short .mirror-quote
+   at the top on desktop). */
+.mirror-grid--center { align-items: center; }
+
+/* ---------- proposition ---------- */
+.proposition { padding: var(--space-xxl) 0; }
+.proposition-eyebrow {
+  margin-bottom: var(--space-xl);
+  font-family: var(--font-mono);
+  font-size: 16px;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+}
+.proposition-grid { display: grid; gap: var(--space-lg); align-items: start; }
+.proposition-title { font-size: 30px; font-weight: 800; line-height: 1.15; letter-spacing: -0.4px; }
+.proposition-goal { margin-top: var(--space-xl); font-size: var(--fs-body-sm); line-height: var(--lh-body-sm); }
+.proposition-card {
+  margin-top: var(--space-xl);
+  padding: var(--space-lg);
+  border: var(--space-hair) solid var(--border-card);
+  border-radius: var(--radius-lg);
+}
+.proposition-card .stat-number { font-size: clamp(40px, 8vw, 64px); font-weight: 800; line-height: 1; color: var(--brand); }
+.proposition-card p { margin-top: var(--space-sm); font-size: var(--fs-body-sm); line-height: var(--lh-body-sm); }
+
+@media (min-width: 721px) {
+  .proposition { padding: var(--space-section) 0 0; }
+  .proposition-eyebrow { font-size: var(--fs-eyebrow); }
+  .proposition-grid { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: var(--space-section); }
+  .proposition-title { max-width: 22em; font-size: 45px; line-height: 1.12; letter-spacing: -0.6px; }
+  .proposition-goal { max-width: 30em; font-size: var(--fs-body); line-height: var(--lh-body); letter-spacing: var(--ls-body); }
+  .proposition-card { margin-top: 0; padding: var(--pad-card); }
+  .proposition-card .stat-number { font-size: clamp(48px, 4.4vw, 64px); }
+}
+
+/* ---------- team ---------- */
+.team { padding: 0 0 var(--space-xxl); }
+.team-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+.team-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+}
+.team-controls { display: flex; gap: var(--space-xs); }
+.team-rail {
+  list-style: none;
+  margin: var(--space-lg) auto 0;
+  display: flex;
+  gap: var(--gutter-mobile);
+  max-width: var(--container-max);
+  padding: 0 var(--gutter-mobile) var(--space-md);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: var(--gutter-mobile);
+  scroll-padding-right: var(--gutter-mobile);
+  scrollbar-width: none;
+}
+.team-rail::-webkit-scrollbar { display: none; }
+.team-card {
+  flex: 0 0 240px;
+  min-width: 0;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xxs);
+  margin: 0;
+}
+.team-photo {
+  width: 100%;
+  height: 300px;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+  background: var(--surface-soft);
+}
+.team-name { margin-top: var(--space-xxs); font-size: var(--fs-body-lg); font-weight: 600; line-height: 1.2; }
+.team-role {
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  letter-spacing: var(--ls-caption);
+  text-transform: uppercase;
+}
+.team-quote { margin-top: 4px; font-size: 15px; line-height: 1.32; }
+
+@media (min-width: 721px) {
+  .team { padding: 0 0 var(--space-section); }
+  .team-head { align-items: flex-end; margin-top: var(--space-section); }
+  .team-eyebrow { font-size: var(--fs-eyebrow); }
+  /* team-rail-outer reproduces .container's own max-width + padding formula
+     exactly (rather than relying on auto-centering alone, which only works
+     once the viewport is wide enough to make max-width the binding
+     constraint) so the rail's content band lines up with every other
+     section at ANY desktop width, not just at the 1280px ceiling. The mask
+     then crops the rail to that same band with overflow:hidden, so the
+     peeking card is cut off at the page's right margin, never past it. */
+  .team-rail-outer {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--gutter-desktop);
+  }
+  .team-rail-mask {
+    overflow: hidden;
+    margin-top: var(--space-xl);
+  }
+  .team-rail {
+    max-width: none;
+    padding: 0 0 var(--space-xs);
+    margin-top: 0;
+    gap: var(--space-lg);
+    scroll-padding-left: 0;
+    scroll-padding-right: 0;
+  }
+  .team-card { flex: 0 0 max(220px, calc((100% - 2 * var(--space-lg) - 140px) / 3)); gap: var(--space-md); }
+  .team-photo { height: 340px; }
+  .team-name { font-size: var(--fs-headline); line-height: 1.25; letter-spacing: var(--ls-headline); }
+  .team-quote { font-size: var(--fs-body-sm); line-height: var(--lh-body-sm); letter-spacing: var(--ls-body-sm); }
+}
+
+/* ---------- plan ---------- */
+.plan-title { font-size: 28px; font-weight: 700; line-height: 1.1; letter-spacing: -0.5px; }
+.plan-list {
+  margin: var(--space-xl) 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+.plan-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xxs);
+  padding-top: var(--space-sm);
+  border-top: var(--space-hair) solid var(--ink);
+}
+.plan-num { font-family: var(--font-mono); font-size: var(--fs-caption); letter-spacing: var(--ls-caption); }
+.plan-item strong { font-size: var(--fs-body-lg); font-weight: 700; line-height: 1.3; }
+.plan-item span:last-child { font-size: var(--fs-body-sm); font-weight: 500; line-height: var(--lh-body-sm); }
+.plan-cta { margin-top: var(--space-xl); }
+
+@media (min-width: 721px) {
+  .plan-title { max-width: 18em; font-size: clamp(32px, 3.4vw, 52px); line-height: 1.1; letter-spacing: var(--ls-display-lg); }
+  .plan-list { gap: var(--space-xl); margin-top: var(--space-xxl); }
+  .plan-item strong { font-size: var(--fs-headline); line-height: 1.25; letter-spacing: var(--ls-headline); }
+  .plan-item span:last-child { font-size: var(--fs-body); }
+  .plan-cta { margin-top: var(--space-xxl); }
+}
+
+/* the 3-across grid needs real width for the headline + description not to
+   crowd each other — keep the single-column (mobile-style) layout through
+   tablet widths (iPad included) and only switch to 3 columns on wide desktop */
+@media (min-width: 1025px) {
+  .plan-list { grid-template-columns: repeat(3, minmax(0, 1fr)); display: grid; }
+}
+
+/* ---------- cost of waiting ---------- */
+.cost { padding: var(--space-xxl) 0; }
+.cost-grid { display: grid; gap: var(--space-xl); }
+.cost-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+}
+.cost-title { margin-top: var(--space-md); max-width: 16em; font-size: 30px; font-weight: 800; line-height: 1.12; letter-spacing: -0.5px; }
+/* when the title is alone in its column (no eyebrow above it there, e.g.
+   because the eyebrow moved to the other column) it shouldn't inherit the
+   top margin meant to clear that eyebrow — drop it so both columns start
+   flush at the same line. */
+.cost-title:first-child { margin-top: 0; }
+.cost-list { display: flex; flex-direction: column; }
+/* when the eyebrow sits in the list column instead of above the title
+   (moved there per-page), give it the same breathing room it'd get above
+   a title — .cost-title's own margin-top handles the usual case. */
+.cost-eyebrow + .cost-list { margin-top: var(--space-md); }
+.cost-list div { padding: var(--space-md) 0; font-size: var(--fs-body); line-height: var(--lh-body); border-top: var(--space-hair) solid var(--hairline); }
+.cost-list div:last-child { border-bottom: var(--space-hair) solid var(--hairline); }
+.cost-note { margin-top: var(--space-lg); font-size: var(--fs-body-sm); line-height: var(--lh-body-sm); }
+
+@media (min-width: 721px) {
+  .cost { padding: var(--space-section) 0; }
+  .cost-eyebrow { font-size: var(--fs-eyebrow); }
+  .cost-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: var(--space-section); }
+  .cost-title { font-size: 45px; line-height: 1.1; letter-spacing: -0.7px; }
+  .cost-list div { font-size: var(--fs-body-lg); line-height: var(--lh-body-lg); letter-spacing: var(--ls-body-lg); }
+  .cost-note { font-size: 20px; }
+}
+
+/* ---------- scarcity / secondary CTA band ---------- */
+.scarcity-section { padding-bottom: var(--space-xl); }
+.scarcity { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-lg); }
+.scarcity-title { max-width: 18em; font-size: 28px; font-weight: 340; line-height: 1.12; letter-spacing: -0.5px; }
+.scarcity .btn-secondary { background: #fff; color: var(--ink); }
+.scarcity-note { font-size: var(--fs-body-sm); line-height: var(--lh-body-sm); }
+
+@media (min-width: 721px) {
+  .scarcity-section { padding-bottom: var(--space-section); }
+  .scarcity-title { font-size: clamp(32px, 3.4vw, 52px); line-height: 1.08; letter-spacing: var(--ls-display-lg); }
+  .color-block.scarcity { padding-top: 72px; padding-bottom: 72px; }
+}
+
+/* ---------- FAQ ---------- */
+.faq { padding: var(--space-xxl) 0; }
+.faq-title { font-size: 28px; font-weight: 800; line-height: 1.14; letter-spacing: -0.5px; }
+.faq-list { margin-top: var(--space-lg); display: flex; flex-direction: column; }
+.faq-item { border-top: var(--space-hair) solid var(--hairline); }
+.faq-item summary {
+  list-style: none;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: 20px 0;
+  min-height: 44px;
+  cursor: pointer;
+  font-size: var(--fs-body);
+  font-weight: 500;
+  line-height: 1.35;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: "+";
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: var(--fs-body-lg);
+  line-height: 1;
+}
+.faq-item[open] summary::after { content: "–"; }
+.faq-item p { padding-bottom: 20px; font-size: var(--fs-body-sm); line-height: var(--lh-body-sm); }
+
+@media (min-width: 721px) {
+  .faq-grid { display: grid; grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr); gap: var(--space-section); align-items: start; }
+  .faq-title { font-size: clamp(28px, 3vw, 44px); line-height: 1.1; letter-spacing: -0.7px; }
+  .faq-list { margin-top: 0; }
+  .faq-item summary { font-size: var(--fs-subhead); font-weight: var(--fw-subhead); line-height: 1.3; letter-spacing: var(--ls-subhead); }
+  .faq-item summary::after { font-size: var(--fs-card-title); }
+  .faq-item p { max-width: 34em; font-size: var(--fs-body); line-height: var(--lh-body); letter-spacing: var(--ls-body); }
+}
+
+/* ---------- footer ---------- */
+.site-footer {
+  padding: var(--space-xl) 0;
+  border-top: var(--space-hair) solid var(--hairline);
+}
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+}
+.site-footer .logo { height: 26px; width: auto; }
+.site-footer address { font-style: normal; text-align: center; font-size: var(--fs-body-sm); line-height: var(--lh-body-sm); letter-spacing: var(--ls-body-sm); }
+.footer-meta { display: flex; flex-direction: column; align-items: center; gap: var(--space-xs); }
+.footer-link { font-size: var(--fs-body-sm); letter-spacing: var(--ls-body-sm); text-decoration: underline; text-underline-offset: 2px; }
+
+@media (min-width: 721px) {
+  .footer-inner { flex-direction: row; align-items: center; justify-content: space-between; }
+  .site-footer .logo { height: 30px; }
+  .site-footer address { text-align: right; }
+  .footer-meta { align-items: flex-end; }
+}
+
+/* ---------- legal / policy pages ---------- */
+.legal { padding: var(--space-xxl) 0; }
+.legal-title { font-size: 32px; font-weight: 800; line-height: 1.1; letter-spacing: -0.5px; }
+.legal-updated { margin-top: var(--space-sm); font-family: var(--font-mono); font-size: var(--fs-caption); letter-spacing: var(--ls-caption); text-transform: uppercase; opacity: 0.6; }
+.legal-content { margin-top: var(--space-xxl); max-width: 42em; }
+.legal-content h2 { margin: var(--space-xxl) 0 var(--space-md); font-size: 20px; font-weight: 700; letter-spacing: -0.3px; }
+.legal-content h2:first-child { margin-top: 0; }
+.legal-content p { margin: 0 0 var(--space-md); font-size: var(--fs-body-sm); line-height: var(--lh-body-sm); }
+.legal-content ul { margin: 0 0 var(--space-md); padding-left: 1.2em; font-size: var(--fs-body-sm); line-height: var(--lh-body-sm); }
+.legal-content li { margin-bottom: var(--space-xs); }
+.legal-content a { text-decoration: underline; text-underline-offset: 2px; }
+
+@media (min-width: 721px) {
+  .legal { padding: var(--space-section) 0; }
+  .legal-title { font-size: 44px; }
+  .legal-content h2 { font-size: 24px; }
+}
+
+/* ---------- sticky mobile CTA ---------- */
+.sticky-cta {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: var(--space-sm) var(--gutter-mobile) var(--space-md);
+  background: var(--canvas);
+  border-top: var(--space-hair) solid var(--hairline);
+  transform: translateY(110%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform var(--dur-base) var(--ease-out), opacity var(--dur-base) var(--ease-out);
+}
+.sticky-cta.is-visible { transform: translateY(0); opacity: 1; pointer-events: auto; }
+.sticky-cta span { font-size: var(--fs-body-sm); font-weight: 500; }
+.sticky-cta .btn { flex: none; min-height: 44px; padding: 10px 20px; }
+
+/* the sticky bar can appear up to tablet widths (iPad included); reserve
+   room at the foot of the page so it never overlaps the footer address */
+@media (max-width: 1024px) {
+  body { padding-bottom: 84px; }
+}
+@media (min-width: 1025px) {
+  .sticky-cta { display: none; }
+}
+
+/* ---------- cookie notice ---------- */
+.cookie-notice {
+  position: fixed;
+  right: var(--space-md);
+  bottom: var(--space-md);
+  z-index: 40;
+  width: min(320px, calc(100vw - 2 * var(--space-md)));
+  padding: var(--space-xl) var(--space-md) var(--space-md);
+  background: var(--canvas);
+  border: var(--space-hair) solid var(--hairline);
+  border-radius: var(--radius-md);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  transform: translateY(12px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform var(--dur-base) var(--ease-out), opacity var(--dur-base) var(--ease-out);
+}
+.cookie-notice[hidden] { display: none; }
+.cookie-notice.is-visible { transform: translateY(0); opacity: 1; pointer-events: auto; }
+.cookie-notice-close {
+  position: absolute;
+  top: var(--space-xs);
+  right: var(--space-xs);
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+}
+.cookie-notice-close:hover { background: var(--surface-soft); }
+.cookie-notice-text { margin: 0; font-size: var(--fs-body-sm); line-height: var(--lh-body-sm); }
+.cookie-notice-actions { margin-top: var(--space-md); display: flex; align-items: center; justify-content: space-between; gap: var(--space-md); }
+.cookie-notice-link { font-size: var(--fs-caption); letter-spacing: var(--ls-caption); }
+.cookie-notice-accept {
+  flex: none;
+  min-height: 36px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--ink);
+  color: var(--canvas);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--dur-base) var(--ease-out);
+}
+.cookie-notice-accept:hover { background: var(--brand); }
