@@ -621,3 +621,43 @@ p { text-wrap: pretty; }
   transition: background-color var(--dur-base) var(--ease-out);
 }
 .cookie-notice-accept:hover { background: var(--brand); }
+
+/* ---------- reserve page (/reserver/) ---------- */
+.reserve { padding: var(--space-md) 10px var(--space-xl); }
+.reserve-inner { max-width: 1000px; margin: 0 auto; }
+.reserve-head { padding: 0 10px; text-align: center; }
+.reserve-title {
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+  text-wrap: balance;
+}
+.reserve-reassurance {
+  margin-top: var(--space-xs);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  letter-spacing: var(--ls-caption);
+  text-transform: uppercase;
+}
+.reserve-calendar { position: relative; margin-top: var(--space-md); min-height: 900px; }
+.reserve-calendar .calendly-inline-widget { position: relative; z-index: 1; min-height: 900px; }
+.reserve-loading {
+  position: absolute;
+  inset: 0;
+  padding-top: 120px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  letter-spacing: var(--ls-caption);
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+.reserve-calendar.is-loaded .reserve-loading { display: none; }
+.site-footer .footer-inner--solo { justify-content: center; }
+@media (min-width: 721px) {
+  .reserve { padding: var(--space-xxl) var(--gutter-desktop) var(--space-section); }
+  .reserve-title { font-size: clamp(32px, 3.6vw, 48px); letter-spacing: -1px; }
+  .reserve-calendar { margin-top: var(--space-xl); min-height: 700px; }
+  .reserve-calendar .calendly-inline-widget { min-height: 700px; }
+}

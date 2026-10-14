@@ -119,9 +119,24 @@
     window.addEventListener("scroll", onScroll, { passive: true });
   }
 
+  /* ---- booking CTAs: send the visitor to /reserver/ with the landing's query ----
+     Keeps UTM / fbclid / etc. intact and adds src=<landing slug>. The static
+     href="/reserver/" in the HTML is the no-JS fallback. */
+  function initReserveLinks(root) {
+    const links = root.querySelectorAll("a[data-cta='reserver']");
+    if (!links.length) return;
+    const params = new URLSearchParams(location.search);
+    const slug = location.pathname.split("/").filter(Boolean)[0];
+    if (slug && /^[A-Za-z0-9_-]+$/.test(slug)) params.set("src", slug);
+    const qs = params.toString();
+    if (!qs) return;
+    links.forEach((a) => { a.href = "/reserver/?" + qs; });
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll("[data-component='team']").forEach(initTeamRail);
     initStickyCta(document);
     initCookieNotice(document);
+    initReserveLinks(document);
   });
 })();
