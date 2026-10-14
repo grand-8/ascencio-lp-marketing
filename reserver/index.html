@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, follow">
+
+<!-- Google Tag Manager container GTM-M7S3R6W7.
+     Facebook Pixel and Google Analytics are configured as tags INSIDE
+     this container (in the GTM web UI), not hardcoded here. -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-M7S3R6W7');</script>
+<!-- End Google Tag Manager -->
+
+<title>Réserver un appel — Ascencio</title>
+
+<link rel="preconnect" href="https://calendly.com">
+<link rel="preconnect" href="https://assets.calendly.com">
+
+<!-- Fonts: preconnected + swapped in so first paint never blocks on them -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&family=JetBrains+Mono:wght@100..800&display=swap">
+
+<link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/images/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/components.css">
+<noscript><style>.reserve-loading { display: none; }</style></noscript>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M7S3R6W7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<header class="site-header">
+  <div class="header-inner container">
+    <a class="logo-link" href="/" data-reserve-back aria-label="Retour">
+      <img class="logo" src="../assets/images/logo-ascensio.svg" width="217" height="42" alt="Ascensio">
+    </a>
+  </div>
+</header>
+
+<main class="reserve" data-component="reserve">
+  <div class="reserve-inner">
+    <div class="reserve-head">
+      <h1 class="reserve-title">Réserve ton appel gratuit</h1>
+      <p class="reserve-reassurance">30 min en visio · gratuit · sans engagement</p>
+    </div>
+
+    <div class="reserve-calendar">
+      <p class="reserve-loading" data-reserve-loading>Chargement du calendrier…</p>
+      <div class="calendly-inline-widget"
+           data-url="https://calendly.com/ascencio-ch/30min?hide_gdpr_banner=1"
+           data-resize="true"
+           style="min-width:320px;"></div>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner footer-inner--solo">
+    <div class="footer-meta">
+      <a class="footer-link" href="/politique-confidentialite/">Politique de confidentialité</a>
+    </div>
+  </div>
+</footer>
+
+<div class="cookie-notice" data-cookie-notice hidden>
+  <button type="button" class="cookie-notice-close" data-cookie-close aria-label="Fermer">×</button>
+  <p class="cookie-notice-text">Ce site utilise des cookies pour améliorer votre expérience et mesurer notre audience.</p>
+  <div class="cookie-notice-actions">
+    <a class="cookie-notice-link" href="/politique-confidentialite/">En savoir plus</a>
+    <button type="button" class="cookie-notice-accept" data-cookie-accept>Compris</button>
+  </div>
+</div>
+
+<!-- Must run before widget.js: Calendly reads data-url once, when it initialises.
+     Everything here is non-personal: only the 5 UTM params go to Calendly, and
+     the dataLayer events carry the landing slug, never anything from the booking. -->
+<script>
+(function () {
+  "use strict";
+  window.dataLayer = window.dataLayer || [];
+
+  var params = new URLSearchParams(location.search);
+  var src = params.get("src");
+  var landingSource = src && /^[A-Za-z0-9_-]{1,64}$/.test(src) ? src : "direct";
+
+  var widget = document.querySelector(".calendly-inline-widget");
+  if (widget) {
+    var url = new URL(widget.getAttribute("data-url"));
+    ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"].forEach(function (key) {
+      var value = params.get(key);
+      if (value) url.searchParams.set(key, value);
+    });
+    widget.setAttribute("data-url", url.toString());
+  }
+
+  var EVENTS = {
+    "calendly.event_type_viewed": "calendly_view",
+    "calendly.date_and_time_selected": "calendly_date_selected",
+    "calendly.event_scheduled": "calendly_booking_confirmed"
+  };
+  var pushed = {};
+  window.addEventListener("message", function (e) {
+    if (e.origin !== "https://calendly.com") return;
+    var name = e.data && e.data.event;
+    if (typeof name !== "string" || name.indexOf("calendly.") !== 0) return;
+    var event = EVENTS[name];
+    if (!event || pushed[event]) return;
+    pushed[event] = true;
+    window.dataLayer.push({ event: event, landing_source: landingSource });
+    if (event === "calendly_view") {
+      var box = document.querySelector(".reserve-calendar");
+      if (box) box.classList.add("is-loaded");
+    }
+  });
+
+  var back = document.querySelector("[data-reserve-back]");
+  if (back) {
+    if (landingSource !== "direct") back.setAttribute("href", "/" + landingSource + "/");
+    back.addEventListener("click", function (e) {
+      var sameSiteReferrer = false;
+      try { sameSiteReferrer = !!document.referrer && new URL(document.referrer).origin === location.origin; } catch (err) {}
+      if (sameSiteReferrer && history.length > 1) {
+        e.preventDefault();
+        history.back();
+      }
+    });
+  }
+})();
+</script>
+<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+<noscript><a href="https://calendly.com/ascencio-ch/30min">Réserver mon appel gratuit</a></noscript>
+
+<script src="../assets/js/main.js" defer></script>
+</body>
+</html>

@@ -25,6 +25,8 @@ Structure :
   index.html    ← thématique "succès qui ne satisfait plus"
 /politique-confidentialite
   index.html    ← page légale partagée, liée depuis le footer de chaque landing
+/reserver
+  index.html    ← page de réservation (calendrier Calendly intégré), cible de tous les CTA — noindex
 index.html      ← redirection racine du sous-domaine → /un-probleme-de-sens/ (voir Déploiement)
 CNAME           ← domaine personnalisé GitHub Pages (go.ascencio.ch)
 ```
@@ -56,7 +58,7 @@ Chaque script de contenu (une thématique = un fichier `.md`) suit le même plan
 | FAQ | en général `[specific]` | `.faq-list` | Réécrire les paires Q/R (le composant n'a pas de nombre fixe) |
 | `<head>` | — | meta | `<title>`, `og:title`, `og:description`, meta description — à réécrire à chaque fois (hors `<main>`, facile à oublier) |
 
-3. Les CTA réutilisent `https://calendly.com/ascencio-ch/30min` avec `target="_blank" rel="noopener noreferrer"`, sauf lien de réservation différent pour cette thématique.
+3. Les CTA ne pointent **plus** vers calendly.com : chaque bouton de réservation est `<a class="btn …" href="/reserver/" data-cta="reserver">` (même onglet, pas de `target="_blank"`). `main.js` (`initReserveLinks`) y reporte au chargement la query string de la landing (UTM, `fbclid`…) et ajoute `src=<slug-du-dossier>` ; le `href` statique est le repli sans JS. Ne jamais remettre un lien direct vers Calendly dans une landing.
 
 ### Modificateurs pour contenus de forme différente
 
@@ -86,6 +88,10 @@ Chaque script de contenu (une thématique = un fichier `.md`) suit le même plan
 ### Choisir le nom du dossier
 
 Éviter les noms qui étiquettent l'audience de façon clinique (âge, diagnostic). Préférer un extrait évocateur tiré du script lui-même (ex. `la-question-qui-revient`, tiré du bloc Miroir) — à valider avec l'utilisateur avant de créer le dossier.
+
+## Page de réservation `/reserver/`
+
+Elle héberge le widget Calendly inline pour que le visiteur reste sur `go.ascencio.ch` (cookies GTM / Pixel / GA4 conservés). Seuls les 5 paramètres `utm_*` de l'URL sont transmis à Calendly. La page écoute les messages de l'iframe Calendly et pousse, une fois par chargement, dans le `dataLayer` : `calendly_view`, `calendly_date_selected`, `calendly_booking_confirmed` (avec `landing_source` = valeur de `src`, ou `direct`), sans donnée personnelle. Le branchement GTM / Meta / GA4 sur ces événements se fait dans les interfaces respectives, pas dans le code.
 
 ## À remplacer avant mise en ligne
 
