@@ -15,10 +15,12 @@ Structure :
   index.html    ← thématique "licenciement / restructuration"
 /le-silence-numerique
   index.html    ← thématique "candidatures sans réponse"
-/retour-conge-maternite
+/revenir-apres-un-conge
   index.html    ← thématique "retour de congé maternité"
-/retour-du-burnout
+/reprendre-apres-une-pause
   index.html    ← thématique "retour de burnout"
+/retour-conge-maternite, /retour-du-burnout
+  index.html    ← anciennes URLs : simples redirections (query string conservée) vers les deux pages ci-dessus
 /tu-tiens-encore
   index.html    ← thématique "fatigue / épuisement latent"
 /un-probleme-de-sens
